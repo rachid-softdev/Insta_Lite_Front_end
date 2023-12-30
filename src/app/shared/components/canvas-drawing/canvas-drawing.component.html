@@ -1,0 +1,31 @@
+<div class="overflow-auto max-h-72 w-full">
+	<div>
+		<canvas id="canvas" class="border border-black dark:border-white"></canvas>
+		<button id="download" type="button"
+			class="m-1 flex w-full items-center justify-center rounded-lg bg-green-700 px-2 py-2 text-sm font-medium text-white focus:outline-none focus:ring-4 focus:ring-green-300 hover:bg-green-800 dark:bg-green-600 dark:focus:ring-green-800 dark:hover:bg-green-700 md:w-auto">Télécharger</button>
+	</div>
+	<div>
+		<label for="range" class="block mb-2 text-sm font-medium text-night-900 dark:text-white">Taille</label>
+		<input type="range" min="1" max="50" value="25" id="range" name="range"
+			class="w-full rounded-lg appearance-none cursor-pointer" (change)="onSizeChange($event)" />
+	</div>
+	<div>
+		<label for="color" class="block mb-2 text-sm font-medium text-night-900 dark:text-white">Couleur</label>
+		<input type="color" id="color" name="color" (change)="onColorChange($event)" value="getColor" />
+	</div>
+	<br />
+	<div>
+		<form id="textForm">
+			<input type="text" id="textInput" placeholder="Entrez votre texte ici" />
+			<button type="submit"
+				class="text-xs font-medium text-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 rounded-lg px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+				Ajouter Texte</button>
+		</form>
+	</div>
+	<button id="clear" type="button"
+		class="text-xs font-medium text-center text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 rounded-lg px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 focus:outline-none dark:focus:ring-red-800">
+		Effaçer</button>
+	<button id="validate" type="button"
+		class="text-xs font-medium text-center text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 rounded-lg px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 focus:outline-none dark:focus:ring-green-800">
+		Valider</button>
+</div>

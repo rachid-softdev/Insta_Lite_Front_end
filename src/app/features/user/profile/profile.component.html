@@ -1,0 +1,222 @@
+<div class="grid grid-cols-1 gap-4">
+  <!-- Grid 1: Image et nom d'utilisateur -->
+  <div class="rounded-md bg-gray-100 p-4 dark:bg-night-800">
+    <!-- Contenu de la première grille ici -->
+    <div class="flex items-center gap-4">
+      <img class="h-10 w-10 rounded-full" src="https://zupimages.net/up/23/45/hm2h.jpg" alt="" />
+      <div class="font-medium dark:text-white">{{ getUser?.getFirstname | HTMLEntityDecode }} {{ getUser?.getLastname | HTMLEntityDecode }}</div>
+    </div>
+  </div>
+  <!-- Grid 2: Formulaire d'informations générales -->
+  <div class="rounded-md bg-gray-100 p-4 dark:bg-night-800">
+    <!-- Titre de la section -->
+    <h2 class="mb-4 text-lg dark:text-white">Informations Générales</h2>
+    <!-- Contenu de la deuxième grille ici -->
+    <form [formGroup]="getUserFormInformation" (ngSubmit)="onSubmitUserInformation()">
+      <div class="grid gap-4 sm:grid-cols-1 md:grid-cols-2">
+        <div>
+          <label for="createdAt" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Date de
+            création</label>
+          <span
+            class="mb-2 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 dark:border-night-600 dark:bg-night-700 dark:text-white dark:placeholder-night-400">
+            Le {{ getUser?.getCreatedAt | date : 'dd/MM/yyyy à HH:mm:ss' }}</span>
+        </div>
+        <div>
+          <label for="updatedAt" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Date de
+            modification</label>
+          <span
+            class="mb-2 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 dark:border-night-600 dark:bg-night-700 dark:text-white dark:placeholder-night-400">
+            Le {{ getUser?.getUpdatedAt | date : 'dd/MM/yyyy à HH:mm:ss' }}</span>
+        </div>
+        <div>
+          <label for="firstname" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Prénom</label>
+          <input type="text" id="firstname" name="firstname" formControlName="firstname" [value]="getUser?.getFirstname | HTMLEntityDecode"
+            class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-night-600 dark:bg-night-700 dark:text-white dark:placeholder-night-400 dark:focus:border-blue-500 dark:focus:ring-blue-500" />
+          <div *ngIf="getUserFormInformationControls['firstname'].invalid ||
+                          (getUserFormInformationControls['firstname'].dirty ||
+                            getUserFormInformationControls['firstname'].touched)
+                        && getUserFormInformationControls['firstname'].errors">
+            <div *ngIf="getUserFormInformationControls['firstname'].hasError('required')"
+              class="mt-2 text-xs text-red-600 dark:text-red-500">Le
+              prénom est requis.</div>
+            <div *ngIf="getUserFormInformationControls['firstname'].hasError('minlength')"
+              class="mt-2 text-xs text-red-600 dark:text-red-500">Le
+              prénom doit contenir au moins une lettre.</div>
+            <div *ngIf="getUserFormInformationControls['firstname'].hasError('maxlength')"
+              class="mt-2 text-xs text-red-600 dark:text-red-500">
+              Le prénom doit contenir au maximum 255 caractères.
+            </div>
+            <div *ngIf="getUserFormInformationControls['firstname'].hasError('pattern')"
+              class="mt-2 text-xs text-red-600 dark:text-red-500">
+              Le prénom doit contenir uniquement des lettres, des espaces, des apostrophes et des tirets.
+            </div>
+          </div>
+        </div>
+        <div>
+          <label for="lastname" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Nom</label>
+          <input type="text" id="lastname" name="lastname" formControlName="lastname" [value]="getUser?.getLastname | HTMLEntityDecode"
+            class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-night-600 dark:bg-night-700 dark:text-white dark:placeholder-night-400 dark:focus:border-blue-500 dark:focus:ring-blue-500" />
+          <div *ngIf="getUserFormInformationControls['lastname'].invalid ||
+                          (getUserFormInformationControls['lastname'].dirty ||
+                            getUserFormInformationControls['lastname'].touched)
+                        && getUserFormInformationControls['lastname'].errors">
+            <div *ngIf="getUserFormInformationControls['lastname'].hasError('required')"
+              class="mt-2 text-xs text-red-600 dark:text-red-500">Le
+              nom est requis.</div>
+            <div *ngIf="getUserFormInformationControls['lastname'].hasError('minlength')"
+              class="mt-2 text-xs text-red-600 dark:text-red-500">Le
+              nom doit contenir au moins une lettre.</div>
+            <div *ngIf="getUserFormInformationControls['lastname'].hasError('maxlength')"
+              class="mt-2 text-xs text-red-600 dark:text-red-500">
+              Le nom doit contenir au maximum 255 caractères.
+            </div>
+            <div *ngIf="getUserFormInformationControls['lastname'].hasError('pattern')"
+              class="mt-2 text-xs text-red-600 dark:text-red-500">
+              Le nom de famille doit contenir uniquement des lettres, des espaces, des apostrophes et des tirets.
+            </div>
+          </div>
+        </div>
+        <div>
+          <label for="email" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Email</label>
+          <input type="email" id="email" name="email" formControlName="email" [value]="getUser?.getEmail"
+            class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-night-600 dark:bg-night-700 dark:text-white dark:placeholder-night-400 dark:focus:border-blue-500 dark:focus:ring-blue-500" />
+          <div *ngIf="getUserFormInformationControls['email'].invalid ||
+                          (getUserFormInformationControls['email'].dirty ||
+                            getUserFormInformationControls['email'].touched)
+                        && getUserFormInformationControls['email'].errors">
+            <div *ngIf="getUserFormInformationControls['email'].hasError('required')"
+              class="mt-2 text-xs text-red-600 dark:text-red-500">
+              L'adresse e-mail est requise.</div>
+            <div *ngIf="getUserFormInformationControls['email'].hasError('email')"
+              class="mt-2 text-xs text-red-600 dark:text-red-500">Veuillez
+              entrer une adresse-email valide.</div>
+          </div>
+        </div>
+        <div>
+          <label for="role" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Rôle</label>
+          <span
+            class="mb-2 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 dark:border-night-600 dark:bg-night-700 dark:text-white dark:placeholder-night-400">{{
+            getUser?.getRole?.getName }}</span>
+        </div>
+      </div>
+      <button type="reset"
+        class="m-2 w-full rounded-lg bg-red-700 px-5 py-2.5 text-center text-sm font-medium text-white focus:outline-none focus:ring-4 focus:ring-red-300 hover:bg-red-800 dark:bg-red-600 dark:focus:ring-red-800 dark:hover:bg-red-700 sm:w-auto">
+        Effaçer les informations
+      </button>
+      <button type="submit"
+        class="w-full rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white focus:outline-none focus:ring-4 focus:ring-blue-300 hover:bg-blue-800 dark:bg-blue-600 dark:focus:ring-blue-800 dark:hover:bg-blue-700 sm:w-auto">
+        Enregistrer les informations
+      </button>
+    </form>
+  </div>
+  <!-- Grid 3: Formulaire de changement de mot de passe -->
+  <div class="rounded-md bg-gray-100 p-4 dark:bg-night-800">
+    <h2 class="mb-4 text-lg dark:text-white">Mot de passe</h2>
+    <form [formGroup]="getUserFormChangePassword" (ngSubmit)="onSubmitChangePassword()">
+      <div class="grid gap-4 sm:grid-cols-1 md:grid-cols-2">
+        <div>
+          <div class="relative">
+            <label for="currentpassword" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Mot de
+              passe
+              courant</label>
+            <input [type]="getPasswordTextTypes[0] ? 'text' : 'password'" id="currentpassword" name="currentpassword"
+              formControlName="currentPassword"
+              class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-night-600 dark:bg-night-700 dark:text-white dark:placeholder-night-400 dark:focus:border-blue-500 dark:focus:ring-blue-500" />
+            <span class="absolute right-5 top-10 cursor-pointer text-gray-400 dark:text-night-300"
+              (click)="togglePasswordTextType(0)">
+              <svg-icon [src]="
+                                  !getPasswordTextTypes[0]
+                                    ? 'assets/icons/heroicons/outline/eye-off.svg'
+                                    : 'assets/icons/heroicons/outline/eye.svg'
+                                " [svgClass]="'h-5 w-5'">
+              </svg-icon>
+            </span>
+          </div>
+          <div *ngIf="getUserFormChangePasswordControls['currentPassword'].invalid &&
+                                            (getUserFormChangePasswordControls['currentPassword'].dirty ||
+                                              getUserFormChangePasswordControls['currentPassword'].touched)
+                                          && getUserFormChangePasswordControls['currentPassword'].errors">
+            <div *ngIf="getUserFormChangePasswordControls['currentPassword'].hasError('required')"
+              class="mt-2 text-xs text-red-600 dark:text-red-500">Le
+              mot de passe est requis.</div>
+            <div *ngIf="getUserFormChangePasswordControls['currentPassword'].hasError('minlength')"
+              class="mt-2 text-xs text-red-600 dark:text-red-500">
+              Le mot de passe doit contenir au moins 8 caractères.
+            </div>
+            <div *ngIf="getUserFormChangePasswordControls['currentPassword'].hasError('pattern')"
+              class="mt-2 text-xs text-red-600 dark:text-red-500">
+              Le mot de passe doit contenir au moins un chiffre, une lettre minuscule, une lettre majuscule et un
+              caractère
+              spécial.
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="relative">
+            <label for="newpassword" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Nouveau mot de
+              passe</label>
+            <input [type]="getPasswordTextTypes[1] ? 'text' : 'password'" id="newpassword" name="newpassword"
+              formControlName="newPassword"
+              class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-night-600 dark:bg-night-700 dark:text-white dark:placeholder-night-400 dark:focus:border-blue-500 dark:focus:ring-blue-500" />
+            <span class="absolute right-5 top-10 cursor-pointer text-gray-400 dark:text-night-300"
+              (click)="togglePasswordTextType(1)">
+              <svg-icon [src]="
+                        !getPasswordTextTypes[1]
+                          ? 'assets/icons/heroicons/outline/eye-off.svg'
+                          : 'assets/icons/heroicons/outline/eye.svg'
+                      " [svgClass]="'h-5 w-5'">
+              </svg-icon>
+            </span>
+          </div>
+          <div *ngIf="getUserFormChangePasswordControls['newPassword'].invalid &&
+                                                      (getUserFormChangePasswordControls['newPassword'].dirty ||
+                                                        getUserFormChangePasswordControls['newPassword'].touched)
+                                                    && getUserFormChangePasswordControls['newPassword'].errors">
+            <div *ngIf="getUserFormChangePasswordControls['newPassword'].hasError('required')"
+              class="mt-2 text-xs text-red-600 dark:text-red-500">Le
+              mot de passe est requis.</div>
+            <div *ngIf="getUserFormChangePasswordControls['newPassword'].hasError('minlength')"
+              class="mt-2 text-xs text-red-600 dark:text-red-500">
+              Le mot de passe doit contenir au moins 8 caractères.
+            </div>
+            <div *ngIf="getUserFormChangePasswordControls['newPassword'].hasError('pattern')"
+              class="mt-2 text-xs text-red-600 dark:text-red-500">
+              Le mot de passe doit contenir au moins un chiffre, une lettre minuscule, une lettre majuscule et un
+              caractère
+              spécial.
+            </div>
+          </div>
+
+        </div>
+        <div>
+          <div class="relative">
+            <label for="confirmpassword" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">Confirmer
+              le
+              nouveau mot de passe</label>
+            <input [type]="getPasswordTextTypes[2] ? 'text' : 'password'" id="confirmpassword" name="confirmpassword"
+              formControlName="confirmPassword"
+              class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-night-600 dark:bg-night-700 dark:text-white dark:placeholder-night-400 dark:focus:border-blue-500 dark:focus:ring-blue-500" />
+            <span class="absolute right-5 top-10 cursor-pointer text-gray-400 dark:text-night-300"
+              (click)="togglePasswordTextType(2)">
+              <svg-icon [src]="
+                                  !getPasswordTextTypes[2]
+                                    ? 'assets/icons/heroicons/outline/eye-off.svg'
+                                    : 'assets/icons/heroicons/outline/eye.svg'
+                                " [svgClass]="'h-5 w-5'">
+              </svg-icon>
+            </span>
+          </div>
+        </div>
+
+      </div>
+      <button type="reset"
+        class="m-2 w-full rounded-lg bg-red-700 px-5 py-2.5 text-center text-sm font-medium text-white focus:outline-none focus:ring-4 focus:ring-red-300 hover:bg-red-800 dark:bg-red-600 dark:focus:ring-red-800 dark:hover:bg-red-700 sm:w-auto">
+        Effaçer le mot de passe
+      </button>
+      <button type="submit"
+        class="m-2 w-full rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white focus:outline-none focus:ring-4 focus:ring-blue-300 hover:bg-blue-800 dark:bg-blue-600 dark:focus:ring-blue-800 dark:hover:bg-blue-700 sm:w-auto">
+        Mettre à jour le mot de passe
+      </button>
+    </form>
+  </div>
+</div>

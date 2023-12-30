@@ -1,0 +1,71 @@
+<div id="imageDetailsModal" aria-hidden="true"
+  class="fixed left-0 right-0 top-0 z-50 flex h-[calc(100%-1rem)] max-h-full w-full items-center justify-center overflow-y-auto overflow-x-hidden md:inset-0">
+  <div class="absolute inset-0 bg-black opacity-50"></div>
+  <div class="relative max-h-full w-full max-w-xl p-4">
+    <!-- Modal content -->
+    <div class="relative rounded-lg bg-white p-4 shadow dark:bg-night-800 sm:p-5">
+      <!-- Modal header -->
+      <div class="mb-4 flex justify-between rounded-t sm:mb-5">
+        <div *ngIf="getImage" class="text-lg text-night-900 md:text-xl">
+          <h3 class="font-semibold text-night-500 dark:text-white">{{ getImage.getTitle }}</h3>
+        </div>
+        <div *ngIf="!getImage" class="text-night-500">Aucune image sélectionnée.</div>
+        <div>
+          <button type="button" (click)="toggleDialog()"
+            class="absolute right-2.5 top-3 ml-auto inline-flex h-8 w-8 items-center justify-center rounded-lg bg-transparent text-sm text-night-400 hover:bg-night-200 hover:text-night-900 dark:hover:bg-night-600 dark:hover:text-white">
+            <svg aria-hidden="true" class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd"
+                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                clip-rule="evenodd" />
+            </svg>
+            <span class="sr-only">Fermer</span>
+          </button>
+        </div>
+      </div>
+      <div class="sm:mx-auto sm:max-w-lg sm:rounded-lg">
+        <!-- Contenu de chaque card -->
+        <div class="p-2">
+          <a href="{{ getImage?.getFileUrl }}" target="_blank">
+            <img class="mx-auto h-auto max-h-48 max-w-full rounded-t-lg object-cover" src="{{ getImage?.getFileUrl }}"
+              alt="" loading="lazy" />
+          </a>
+          <p class="dark:text-blue mb-2 truncate text-xl font-bold text-night-500 dark:text-white">
+            {{ getImage?.getTitle | HTMLEntityDecode }}
+          </p>
+          <p class="truncate text-night-500 dark:text-night-200">Identifiant : {{ getImage?.getPublicId }}</p>
+          <p class="truncate text-night-500 dark:text-night-200">Description : {{ getImage?.getDescription | HTMLEntityDecode }}</p>
+          <p class="truncate text-night-500 dark:text-night-200">
+            Publié le : {{ getImage?.getPublishedAt | date : 'dd/MM/yyyy à HH:mm:ss' }}
+          </p>
+          <p class="truncate text-night-500 dark:text-night-200">Visibilité :
+            <span *ngIf="getImage?.getVisibility"
+              [ngClass]="visibilityClasses[getImage?.getVisibility ?? EVisibility.PRIVATE]">
+              {{ getImage?.getVisibility }}
+            </span>
+          </p>
+          <p class="truncate text-night-500 dark:text-night-200">
+            Crée le : {{ getImage?.getCreatedAt | date : 'dd/MM/yyyy à HH:mm:ss' }}
+          </p>
+          <p class="truncate text-night-500 dark:text-night-200">
+            Mis à jour le : {{ getImage?.getUpdatedAt | date : 'dd/MM/yyyy à HH:mm:ss' }}
+          </p>
+          <p class="truncate text-night-500 dark:text-night-200">
+            Nom du fichier : {{ fileInfoMap.get(getImage?.getFileUrl ?? '')?.fileName }}
+          </p>
+          <p class="truncate text-night-500 dark:text-night-200">
+            Taille du fichier : {{ formatFileSize(fileInfoMap.get(getImage?.getFileUrl ?? '')?.fileSize || 0) }}
+          </p>
+          <p class="truncate text-night-500 dark:text-night-200">
+            Type du fichier : {{ fileInfoMap.get(getImage?.getFileUrl ?? '')?.fileExtension }}
+          </p>
+          <p class="truncate text-night-500 dark:text-night-200">Auteur : {{ getImage?.getAuthor?.getEmail }}</p>
+        </div>
+        <button type="button" (click)="onClickVisualizeImage(getImage?.getFileUrl ?? '')"
+          class="m-1 flex w-full items-center justify-center rounded-lg bg-blue-700 px-2 py-2 text-sm font-medium text-white focus:outline-none focus:ring-4 focus:ring-blue-300 hover:bg-blue-800 dark:bg-blue-600 dark:focus:ring-blue-800 dark:hover:bg-blue-700 md:w-auto">
+          Visualiser l'image
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

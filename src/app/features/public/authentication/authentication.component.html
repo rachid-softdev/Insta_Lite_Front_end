@@ -1,0 +1,23 @@
+<div class="h-screen w-screen flex">
+
+  <div class="auth-bg hidden flex-1 items-center justify-center bg-blue-500 bg-cover lg:flex">
+    <div class="max-w-2xl space-y-4 p-8 text-center text-white">
+      <h1 class="text-4xl font-bold">"Insta Lite, un portfolio pour les artistes"</h1>
+      <p class="text-xs font-light">
+        Un groupe d'artistes souhaite partager du contenu en ligne via
+        <span class="cursor-pointer font-medium text-yellow-400">un portfolio</span>, sans pour autant passer par de
+        grandes plateformes de réseaux sociaux. Pour ce faire, ils ont besoin de votre aide et vous proposent un
+        projet
+        de portfolio afin de pouvoir partager leurs
+        <span class="cursor-pointer font-medium text-yellow-400">ressources</span> en images.
+      </p>
+    </div>
+  </div>
+  <div class="flex flex-1 items-center justify-center bg-white dark:bg-night-700">
+    <div class="max-w-md overflow-y-auto px-4 sm:w-[500px]">
+      <!-- Route -->
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+
+</div>
